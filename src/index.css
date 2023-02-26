@@ -1,0 +1,18 @@
+body {
+    font: 14px "Century Gothic", Futura, sans-serif;
+    margin: 20px;
+}
+
+header {
+    
+}
+
+.chat {
+    display: table-cell;
+    vertical-align: left;
+}
+
+.chatMessage {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
