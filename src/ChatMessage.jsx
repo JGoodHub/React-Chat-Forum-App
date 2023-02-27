@@ -1,19 +1,14 @@
 import React from 'react';
 
-class ChatMessage extends React.Component
+const ChatMessage = (message) =>
 {
-    render ()
-    {
-        let dateFormatted = Date.parse(this.props.timestamp);
-
-        return (
-            <div className='row chatMessage'>
-                {this.props.sender}  {this.props.timestamp}
-                <br />
-                {this.props.content}
-            </div>
-        );
-    }
+    return (
+        <div className='row chatMessage'>
+            {message.sender}  {message.timestamp}
+            <br />
+            {message.content}
+        </div>
+    );
 }
 
 export default ChatMessage;

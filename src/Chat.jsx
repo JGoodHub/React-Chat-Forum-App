@@ -3,48 +3,61 @@ import React, { useEffect, useState } from 'react';
 import ChatMessage from './ChatMessage'
 import MessageForm from './MessageForm';
 
-import { fetchLatestMessages } from './Services';
+import { getAllRoomMessages } from './Services';
 
-const Chat = async () =>
+const Chat = () =>
 {
 
-    //const [messageStore, setMessageStore] = useState({ messages: [] });
+    const [messageStore, setMessageStore] = useState([]);
 
-    // useEffect(() =>
-    // {
-    //     setMessageStore(fetchMessagesAsync());
-    // }, [])
-
-    // const fetchMessagesAsync = async () =>
-    // {
-    //     const messages = await fetchLatestMessages();
-    //     console.log(messages);
-    //     return messages;
-    // }
-
-    const chatMessages = async () =>
+    useEffect(() =>
     {
-        const messages = await fetchLatestMessages();
-
-        console.log(messages);
-
-        messages.map((message) =>
+        const fetchData = async () =>
         {
-            return <ChatMessage sender={message.username} content={message.content} timestamp={message.timestamp} />;
+            const messages = await getAllRoomMessages();
+            setMessageStore(messages);
+        }
+
+        fetchData()
+            .catch(console.error);
+    }, []);
+
+    const getChatMessageComponents = () =>
+    {
+        return messageStore.map((message) =>
+        {
+            return <ChatMessage
+                key={message.timestamp}
+                sender={message.username}
+                content={message.content}
+                timestamp={message.timestamp}
+            />;
         });
+    }
+
+    const refreshMessages = () =>
+    {
+        const fetchData = async () =>
+        {
+            const messages = await getAllRoomMessages();
+            setMessageStore(messages);
+        }
+
+        fetchData()
+            .catch(console.error);
     }
 
     return (
         <div>
             <div className='container'>
-                {await chatMessages()}
+                {getChatMessageComponents()}
             </div>
             <div>
                 <div>
+                    <MessageForm refreshCallback={refreshMessages} />
                 </div>
             </div>
         </div>
-
     );
 
 };

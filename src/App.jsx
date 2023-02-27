@@ -2,10 +2,11 @@ import React from 'react';
 
 import PageHeader from './PageHeader';
 import Chat from './Chat';
+import PageFooter from './PageFooter';
 
 class App extends React.Component
 {
-    
+
 
     render ()
     {
@@ -16,6 +17,9 @@ class App extends React.Component
                 </div>
                 <div>
                     <Chat />
+                </div>
+                <div>
+                    <PageFooter />
                 </div>
             </div>
         );
